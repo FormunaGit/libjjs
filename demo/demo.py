@@ -1,5 +1,7 @@
 import libjjs
 
+nodes = libjjs.Nodes()
+
 demo_character = libjjs.Character()
 
 # demo_character.create_raw_skill(
@@ -11,9 +13,21 @@ demo_character = libjjs.Character()
 #     },
 # )
 
-demo_character.create.special(
+# demo_character.create.special(
+#     "Quick Swap",
+#     '{"Line":[{"SPEED":100,"K_NAME":"SPECIAL","SPEC":"Boogie Woogie","ENABLE VARIANTS":false}],"Prop":[],"Req":[]}',
+#     0,
+# )
+
+demo_character.create.skill(
     "Quick Swap",
-    '{"Line":[{"SPEED":100,"K_NAME":"SPECIAL","SPEC":"Boogie Woogie","ENABLE VARIANTS":false}],"Prop":[],"Req":[]}',
+    [
+        nodes.SPECIAL(
+            "Boogie Woogie",
+            100,
+            enable_variants=False,
+        )
+    ],
     0,
 )
 

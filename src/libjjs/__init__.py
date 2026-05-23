@@ -67,54 +67,98 @@ class Character:
         def __init__(self, character):
             self.character = character
 
+        @staticmethod
+        def _build_data(
+            line: list[dict], prop: list[dict] | None = None, req: list[dict] | None = None
+        ) -> str:
+            return json.dumps(
+                {"Line": line, "Prop": prop or [], "Req": req or []},
+                separators=(",", ":"),
+            )
+
         # Adds a basic skill to the character
         def skill(
-            self, name: str, data: str, cooldown: int, key: int, add: bool = False
+            self,
+            name: str,
+            line: list[dict],
+            cooldown: int,
+            key: int | None = None,
+            add: bool = False,
+            prop: list[dict] | None = None,
+            req: list[dict] | None = None,
         ):
             skill_data: SkillType = {
                 "NAME": name,
-                "DATA": data,
+                "DATA": self._build_data(line, prop, req),
                 "K_NAME": "SKILL",
                 "COOLDOWN": cooldown,
-                "KEY": key,
+                "KEY": key if key is not None else len(self.character.raw) + 1,
                 "ADD": add,
             }
             self.character.create_raw_skill(skill_data)
 
         # Adds a special to the character
-        def special(self, name: str, data: str, cooldown: int):
+        def special(
+            self,
+            name: str,
+            line: list[dict],
+            cooldown: int,
+            prop: list[dict] | None = None,
+            req: list[dict] | None = None,
+        ):
             skill_data: SpecialType = {
                 "NAME": name,
-                "DATA": data,
+                "DATA": self._build_data(line, prop, req),
                 "K_NAME": "SPECIAL",
                 "COOLDOWN": cooldown,
             }
             self.character.create_raw_skill(skill_data)
 
         # Adds a melee attack to the character
-        def melee(self, name: str, data: str):
+        def melee(
+            self,
+            name: str,
+            line: list[dict],
+            prop: list[dict] | None = None,
+            req: list[dict] | None = None,
+        ):
             skill_data: MeleeType = {
                 "NAME": name,
-                "DATA": data,
+                "DATA": self._build_data(line, prop, req),
                 "K_NAME": "MELEE",
             }
             self.character.create_raw_skill(skill_data)
 
         # Adds a dash/chase move to the character
-        def chase(self, name: str, data: str, cooldown: int):
+        def chase(
+            self,
+            name: str,
+            line: list[dict],
+            cooldown: int,
+            prop: list[dict] | None = None,
+            req: list[dict] | None = None,
+        ):
             skill_data: ChaseType = {
                 "NAME": name,
-                "DATA": data,
+                "DATA": self._build_data(line, prop, req),
                 "K_NAME": "CHASE",
                 "COOLDOWN": cooldown,
             }
             self.character.create_raw_skill(skill_data)
 
         # Adds an awakening move to the character
-        def awakening(self, name: str, data: str, duration: int, delay: int):
+        def awakening(
+            self,
+            name: str,
+            line: list[dict],
+            duration: int,
+            delay: int,
+            prop: list[dict] | None = None,
+            req: list[dict] | None = None,
+        ):
             skill_data: AwakeningType = {
                 "NAME": name,
-                "DATA": data,
+                "DATA": self._build_data(line, prop, req),
                 "K_NAME": "AWAKENING",
                 "DURATION": duration,
                 "DELAY": delay,
