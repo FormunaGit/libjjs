@@ -1,0 +1,18 @@
+[project]
+name = "libjjs"
+version = "0.1.0"
+description = "A Python library for creating Jujutsu Shenanigans movesets."
+authors = [
+    {name = "FormunaGit",email = "formuna@tuta.io"}
+]
+license = "LGPL-3.0"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "zstd (>=1.5.7.3,<2.0.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
