@@ -648,7 +648,7 @@ class Nodes:
             "SIZE": str(size).replace("[", "").replace("]", ""),
             "POSITION": str(position).replace("[", "").replace("]", ""),
             "ROTATION": str(rotation).replace("[", "").replace("]", ""),
-            "ATTACK TYPE": attack_type,
+            "ATTACK TYPE": attack_type,  # CHOICE
             "PROJECTILE TAG": projectile_tag,
             "REFLECT COUNT": reflect_count,
             "FILTER INTERVAL": filter_interval,
