@@ -271,6 +271,7 @@ class Character:
             line: list[dict],
             properties: dict | None = None,
             conditions: list[dict] | None = None,
+            branches: dict[str, dict] | None = None,
         ) -> str:
             # remove default properties
             clean_props = {}
@@ -312,14 +313,59 @@ class Character:
                     else:
                         clean_conds.append(cond)
 
-            return json.dumps(
-                {
-                    "Line": clean_line,
-                    "Prop": clean_props,
-                    "Req": clean_conds,
-                },
-                separators=(",", ":"),
-            )
+            # clean branches
+            clean_branches = {}
+            if branches:
+                for branch_name, branch_data in branches.items():
+                    branch_line = branch_data["nodes"]
+                    branch_conds = branch_data.get("conditions")
+                    clean_branch_line = []
+                    for node in branch_line:
+                        k_name = node.get("K_NAME")
+                        if k_name in NODE_DEFAULTS:
+                            defaults = NODE_DEFAULTS[k_name]
+                            clean_node = {
+                                k: v
+                                for k, v in node.items()
+                                if k == "K_NAME"
+                                or k not in defaults
+                                or defaults[k] != v
+                            }
+                            clean_branch_line.append(clean_node)
+                        else:
+                            clean_branch_line.append(node)
+
+                    clean_branch_conds = []
+                    if branch_conds:
+                        for cond in branch_conds:
+                            c_name = cond.get("K_NAME")
+                            if c_name in CONDITIONS_DEFAULTS:
+                                defaults = CONDITIONS_DEFAULTS[c_name]
+                                clean_cond = {
+                                    k: v
+                                    for k, v in cond.items()
+                                    if k == "K_NAME"
+                                    or k not in defaults
+                                    or defaults[k] != v
+                                }
+                                clean_branch_conds.append(clean_cond)
+                            else:
+                                clean_branch_conds.append(cond)
+
+                    clean_branches[branch_name] = {
+                        "Line": clean_branch_line,
+                        "Req": clean_branch_conds,
+                    }
+
+            data = {
+                "Line": clean_line,
+                "Prop": clean_props,
+                "Req": clean_conds,
+            }
+            if clean_branches:
+                data["Branch"] = clean_branches
+
+            return json.dumps(data, separators=(",", ":"))
 
         def skill(
             self,
@@ -333,10 +379,11 @@ class Character:
             delay: int | None = None,
             properties: dict | None = None,
             conditions: list[dict] | None = None,
+            branches: dict[str, dict] | None = None,
         ):
             data: dict[str, object] = {
                 "NAME": name,
-                "DATA": self._build_data(line, properties, conditions),
+                "DATA": self._build_data(line, properties, conditions, branches),
                 "K_NAME": kind,
             }
             if kind == "SKILL":
@@ -815,6 +862,13 @@ class Conditions:
 
     def IS_HOLDING(self, flip: bool = False) -> dict:
         return {"K_NAME": "HOLD", "FLIP": flip}
+
+
+def Branch(
+    nodes: list[dict],
+    conditions: list[dict] | None = None,
+) -> dict:
+    return {"nodes": nodes, "conditions": conditions or []}
 
 
 def Properties(
