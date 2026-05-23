@@ -43,137 +43,328 @@ GenericSkill = (
 )
 
 
+NODE_DEFAULTS: dict[str, dict[str, object]] = {
+    "WAIT": {"TIME": 1},
+    "SKILL": {
+        "MOVE": "Divergent Fist",
+        "SPEED": 1,
+        "START": 0,
+        "HOLD FOR": 0,
+        "ENABLE VARIANTS": True,
+        "CANCEL LAST": False,
+    },
+    "SPECIAL": {
+        "SPEC": "Limitless",
+        "SPEED": 1,
+        "ENABLE VARIANTS": True,
+        "CANCEL LAST": False,
+    },
+    "ANIM": {
+        "ANIM_USE": [1, 1],
+        "PREVIEW": [0, 3.6],
+        "SPEED": 1,
+        "FADE IN": 0.1,
+        "FADE OUT": 0,
+        "LAST HIT": -1,
+        "LOOPED": False,
+    },
+    "SFX": {
+        "ID": 12222253,
+        "START": 0,
+        "END": 500,
+        "SPEED": 1,
+        "VOLUME": 1,
+        "GLOBAL": False,
+        "PROJECTILE TAG": "nil",
+        "CANCEL": False,
+    },
+    "VELO": {
+        "FORCE": "0, 0, 0",
+        "TIME": 0,
+        "FADE": False,
+        "TRACK": False,
+        "LAST HIT": -1,
+        "RAGDOLL": 0,
+        "TRUE RAGDOLL": False,
+        "RELATIVE FROM BRANCH": False,
+    },
+    "CONNECT": {"SIGNAL": "Nothing", "TIME": 0.1, "RANGE": 99999999},
+    "HITBOX": {
+        "POSITION": "0, 0, 4",
+        "ROTATION": "0, 0, 0",
+        "SIZE": "6, 6, 6",
+        "STUN": 1,
+        "STUN ANIM": False,
+        "DAMAGE": 1,
+        "DEBREE": 0,
+        "ATTACK TYPE": "Melee",
+        "BLOCKABLE": True,
+        "360 BLOCK": False,
+        "CANCEL ENEMY": True,
+        "CLEAR KNOCKBACK": False,
+        "CAN KILL": True,
+        "HIT RAGDOLL": False,
+        "HIT USER": False,
+        "SINGLE TARGET": True,
+        "BRANCH": "nil",
+        "BRANCH TARGET": "nil",
+        "BRANCH FINISHER": "nil",
+        "PROJECTILE TAG": "nil",
+    },
+    "BRANCH": {"BRANCH": "nil", "RANDOM": "", "LAST HIT": -1},
+    "VISUAL": {
+        "EFFECT": "Slash",
+        "TIME": 1,
+        "POSITION": "0, 0, 0",
+        "ROTATION": "0, 0, 0",
+        "SIZE": 1,
+        "COLOR": "255, 255, 255",
+        "OPACITY": 0,
+        "ALT POSITION": "0, 0, 0",
+        "ALT ROTATION": "0, 0, 0",
+        "ALT SIZE": 1,
+        "ALT COLOR": "255, 255, 255",
+        "ALT OPACITY": 0,
+        "TEXTURE": 2,
+        "BODY PART": "HumanoidRootPart",
+        "EASING STYLE": "Linear",
+        "EASING DIRECTION": "In",
+        "PROJECTILE TAG": "nil",
+        "VISUAL TAG": "nil",
+        "AMOUNT": 1,
+        "RUN ON SERVER": False,
+        "RELATIVE FROM BRANCH": False,
+        "CANCEL ON INTERRUPT": False,
+        "CAN COLLIDE": False,
+        "LAST HIT": -1,
+    },
+    "GRAB": {
+        "BODY PART": "HumanoidRootPart",
+        "BODY PART2": "HumanoidRootPart",
+        "TIME": 1,
+        "POSITION": "0, 0, 0",
+        "ROTATION": "0, 0, 0",
+        "LAST HIT": 1,
+    },
+    "PROJECTILE": {
+        "DAMAGE": 1,
+        "STUN": 1,
+        "SPEED": 1,
+        "SIZE": "6, 6, 6",
+        "POSITION": "0, 0, 0",
+        "ROTATION": "0, 0, 0",
+        "ATTACK TYPE": "Melee",
+        "PROJECTILE TAG": "nil",
+        "REFLECT COUNT": 0,
+        "FILTER INTERVAL": 1,
+        "BRANCH": "nil",
+        "BRANCH TARGET": "nil",
+        "BRANCH COLLIDED": "nil",
+        "CONTINUE": False,
+        "HIT RAGDOLL": False,
+        "STUN ANIM": False,
+        "HIT USER": False,
+        "BLOCKABLE": True,
+        "AIM LAST HIT": -1,
+        "TIME": 1,
+        "IGNORE WAKEUP": True,
+        "DEBREE": 0,
+        "CANCEL ENEMY": True,
+        "CACHE": True,
+    },
+    "COUNTER": {
+        "TIME": 1,
+        "STUN": 1,
+        "ATTACK TYPE2": "Melee",
+        "BRANCH": "nil",
+        "BRANCH TARGET": "nil",
+        "CANCEL ENEMY": True,
+        "REMOVE ON HIT": True,
+    },
+    "TAG": {
+        "TAG": "nil",
+        "VALUE": "nil",
+        "TIME": 1,
+        "ADD/REMOVE": True,
+        "CHECK": False,
+        "SET": True,
+        "BRANCH": "nil",
+        "LAST HIT": -1,
+    },
+    "STATE": {
+        "STATE": "Stun",
+        "VALUE": 1,
+        "TIME": 1,
+        "DISABLE BURST": False,
+        "CANCEL ON END": False,
+        "LAST HIT": -1,
+        "BRANCH": "nil",
+        "CHECK": False,
+    },
+    "TELEPORT": {
+        "POSITION": "0, 0, 0",
+        "ROTATION": "0, 0, 0",
+        "PROJECTILE TAG": "nil",
+        "LAST HIT": -1,
+        "RELATIVE FROM BRANCH": False,
+    },
+    "ULTGIB": {"AMOUNT": 5},
+    "HPGIB": {"AMOUNT": 5},
+    "EVGIB": {"AMOUNT": 5},
+    "HITCNCL": {"TIME": 1, "ENDLAG": 1, "BRANCH": "nil", "FLIP": False},
+    "SETCD": {"KEY": -1, "COOLDOWN": -1},
+    "LOOP": {"LOOP BACK": 1, "HOLD": False, "LOOP AMOUNT": 3},
+}
+
+
+PROPERTIES_DEFAULTS = {
+    "DMG": 1,
+    "KNOCK": 1,
+    "INV": False,
+    "REP": False,
+    "REP2": False,
+    "AWK": False,
+    "KEEP": False,
+    "AWK2": False,
+    "USE": False,
+    "USEONDEATH": False,
+    "NOSTUN": False,
+    "NOCANCEL": False,
+    "VAR": "-",
+}
+
+CONDITIONS_DEFAULTS = {
+    "AIR": {"FLIP": False},
+    "JUMP": {"FLIP": False},
+    "AIM": {"FLIP": False},
+    "ULT": {"FLIP": False},
+    "BAR": {"AMOUNT": 2, "FLIP": False},
+    "DUR": {"DURABILITY": 1},
+    "HP": {"AMOUNT": 1, "FLIP": False},
+    "DOMAIN": {"FLIP": False},
+    "HOLD": {"FLIP": False},
+}
+
+
 class Character:
     def __init__(self):
         self.raw: list[GenericSkill] = []
         self.create = self.CreateHelper(self)
 
-    # Creates a raw skill from the given data
     def create_raw_skill(self, skill_data: GenericSkill):
         self.raw.append(skill_data)
 
-    # Exports the character data as a JSON string
     def export_raw(self) -> str:
         return json.dumps(self.raw, separators=(",", ":"))
 
-    # Exports the character as a JJS character code
     def export_character_code(self) -> str:
         zstd_encoded = zstd.compress(self.export_raw().encode("utf-8"))
         base64_encoded = base64.b64encode(zstd_encoded)
         return base64_encoded.decode("utf-8")
 
-    # Helper class for creating attacks
     class CreateHelper:
         def __init__(self, character):
             self.character = character
 
         @staticmethod
         def _build_data(
-            line: list[dict], prop: list[dict] | None = None, req: list[dict] | None = None
+            line: list[dict],
+            properties: dict | None = None,
+            conditions: list[dict] | None = None,
         ) -> str:
+            # remove default properties
+            clean_props = {}
+            if properties:
+                for k, v in properties.items():
+                    if k in PROPERTIES_DEFAULTS and PROPERTIES_DEFAULTS[k] == v:
+                        continue
+                    clean_props[k] = v
+
+            # clean default values in nodes
+            clean_line = []
+            for node in line:
+                k_name = node.get("K_NAME")
+                if k_name in NODE_DEFAULTS:
+                    defaults = NODE_DEFAULTS[k_name]
+                    # keep K_NAME but slime out matching defaults
+                    clean_node = {
+                        k: v
+                        for k, v in node.items()
+                        if k == "K_NAME" or k not in defaults or defaults[k] != v
+                    }
+                    clean_line.append(clean_node)
+                else:
+                    clean_line.append(node)
+
+            # clean conditions
+            clean_conds = []
+            if conditions:
+                for cond in conditions:
+                    c_name = cond.get("K_NAME")
+                    if c_name in CONDITIONS_DEFAULTS:
+                        defaults = CONDITIONS_DEFAULTS[c_name]
+                        clean_cond = {
+                            k: v
+                            for k, v in cond.items()
+                            if k == "K_NAME" or k not in defaults or defaults[k] != v
+                        }
+                        clean_conds.append(clean_cond)
+                    else:
+                        clean_conds.append(cond)
+
             return json.dumps(
-                {"Line": line, "Prop": prop or [], "Req": req or []},
+                {
+                    "Line": clean_line,
+                    "Prop": clean_props,
+                    "Req": clean_conds,
+                },
                 separators=(",", ":"),
             )
 
-        # Adds a basic skill to the character
         def skill(
             self,
             name: str,
             line: list[dict],
-            cooldown: int,
+            kind: Literal["SKILL", "SPECIAL", "MELEE", "CHASE", "AWAKENING"] = "SKILL",
+            cooldown: int | None = None,
             key: int | None = None,
             add: bool = False,
-            prop: list[dict] | None = None,
-            req: list[dict] | None = None,
+            duration: int | None = None,
+            delay: int | None = None,
+            properties: dict | None = None,
+            conditions: list[dict] | None = None,
         ):
-            skill_data: SkillType = {
+            data: dict[str, object] = {
                 "NAME": name,
-                "DATA": self._build_data(line, prop, req),
-                "K_NAME": "SKILL",
-                "COOLDOWN": cooldown,
-                "KEY": key if key is not None else len(self.character.raw) + 1,
-                "ADD": add,
+                "DATA": self._build_data(line, properties, conditions),
+                "K_NAME": kind,
             }
-            self.character.create_raw_skill(skill_data)
-
-        # Adds a special to the character
-        def special(
-            self,
-            name: str,
-            line: list[dict],
-            cooldown: int,
-            prop: list[dict] | None = None,
-            req: list[dict] | None = None,
-        ):
-            skill_data: SpecialType = {
-                "NAME": name,
-                "DATA": self._build_data(line, prop, req),
-                "K_NAME": "SPECIAL",
-                "COOLDOWN": cooldown,
-            }
-            self.character.create_raw_skill(skill_data)
-
-        # Adds a melee attack to the character
-        def melee(
-            self,
-            name: str,
-            line: list[dict],
-            prop: list[dict] | None = None,
-            req: list[dict] | None = None,
-        ):
-            skill_data: MeleeType = {
-                "NAME": name,
-                "DATA": self._build_data(line, prop, req),
-                "K_NAME": "MELEE",
-            }
-            self.character.create_raw_skill(skill_data)
-
-        # Adds a dash/chase move to the character
-        def chase(
-            self,
-            name: str,
-            line: list[dict],
-            cooldown: int,
-            prop: list[dict] | None = None,
-            req: list[dict] | None = None,
-        ):
-            skill_data: ChaseType = {
-                "NAME": name,
-                "DATA": self._build_data(line, prop, req),
-                "K_NAME": "CHASE",
-                "COOLDOWN": cooldown,
-            }
-            self.character.create_raw_skill(skill_data)
-
-        # Adds an awakening move to the character
-        def awakening(
-            self,
-            name: str,
-            line: list[dict],
-            duration: int,
-            delay: int,
-            prop: list[dict] | None = None,
-            req: list[dict] | None = None,
-        ):
-            skill_data: AwakeningType = {
-                "NAME": name,
-                "DATA": self._build_data(line, prop, req),
-                "K_NAME": "AWAKENING",
-                "DURATION": duration,
-                "DELAY": delay,
-            }
-            self.character.create_raw_skill(skill_data)
-
-
-# Helper class to hold all the nodes.
+            if kind == "SKILL":
+                if cooldown is not None:
+                    data["COOLDOWN"] = cooldown
+                data["KEY"] = (
+                    key
+                    if key is not None
+                    else sum(
+                        1 for s in self.character.raw if s.get("K_NAME") == "SKILL"
+                    )
+                    + 1
+                )
+                if add:
+                    data["ADD"] = add
+            elif kind in ("SPECIAL", "CHASE"):
+                if cooldown is not None:
+                    data["COOLDOWN"] = cooldown
+            elif kind == "AWAKENING":
+                if duration is not None:
+                    data["DURATION"] = duration
+                if delay is not None:
+                    data["DELAY"] = delay
+            self.character.create_raw_skill(data)
 
 
 class Nodes:
-    def __init__(self):
-        pass
-
-    def WAIT(self, TIME: int = 1):
+    def WAIT(self, TIME: float = 1):
         return {"K_NAME": "WAIT", "TIME": TIME}
 
     def SKILL(
@@ -270,7 +461,7 @@ class Nodes:
     ):
         return {
             "K_NAME": "VELO",
-            "FORCE": str(force),
+            "FORCE": str(force).replace("[", "").replace("]", ""),
             "TIME": time,
             "FADE": fade,
             "TRACK": track,
@@ -313,9 +504,9 @@ class Nodes:
     ):
         return {
             "K_NAME": "HITBOX",
-            "POSITION": str(position),
-            "ROTATION": str(rotation),
-            "SIZE": str(size),
+            "POSITION": str(position).replace("[", "").replace("]", ""),
+            "ROTATION": str(rotation).replace("[", "").replace("]", ""),
+            "SIZE": str(size).replace("[", "").replace("]", ""),
             "STUN": stun,
             "STUN ANIM": stun_anim,
             "DAMAGE": damage,
@@ -354,12 +545,12 @@ class Nodes:
         time: float = 1,
         position: list[int] = [0, 0, 0],
         rotation: list[int] = [0, 0, 0],
-        size: list[int] = [1, 1, 1],
+        size: float = 1,
         color: str = "255, 255, 255",
         opacity: float = 0,
         alt_position: list[int] = [0, 0, 0],
         alt_rotation: list[int] = [0, 0, 0],
-        alt_size: list[int] = [1, 1, 1],
+        alt_size: float = 1,
         alt_color: str = "255, 255, 255",
         alt_opacity: float = 0,
         texture: int = 2,
@@ -379,14 +570,14 @@ class Nodes:
             "K_NAME": "VISUAL",
             "EFFECT": effect,
             "TIME": time,
-            "POSITION": str(position),
-            "ROTATION": str(rotation),
-            "SIZE": str(size),
+            "POSITION": str(position).replace("[", "").replace("]", ""),
+            "ROTATION": str(rotation).replace("[", "").replace("]", ""),
+            "SIZE": size,
             "COLOR": color,
             "OPACITY": opacity,
-            "ALT POSITION": str(alt_position),
-            "ALT ROTATION": str(alt_rotation),
-            "ALT SIZE": str(alt_size),
+            "ALT POSITION": str(alt_position).replace("[", "").replace("]", ""),
+            "ALT ROTATION": str(alt_rotation).replace("[", "").replace("]", ""),
+            "ALT SIZE": alt_size,
             "ALT COLOR": alt_color,
             "ALT OPACITY": alt_opacity,
             "TEXTURE": texture,
@@ -417,8 +608,8 @@ class Nodes:
             "BODY PART": body_part,
             "BODY PART2": body_part2,
             "TIME": time,
-            "POSITION": str(position),
-            "ROTATION": str(rotation),
+            "POSITION": str(position).replace("[", "").replace("]", ""),
+            "ROTATION": str(rotation).replace("[", "").replace("]", ""),
             "LAST HIT": last_hit,
         }
 
@@ -454,10 +645,10 @@ class Nodes:
             "DAMAGE": damage,
             "STUN": stun,
             "SPEED": speed,
-            "SIZE": str(size),
-            "POSITION": str(position),
-            "ROTATION": str(rotation),
-            "ATTACK TYPE": attack_type,  # CHOICE
+            "SIZE": str(size).replace("[", "").replace("]", ""),
+            "POSITION": str(position).replace("[", "").replace("]", ""),
+            "ROTATION": str(rotation).replace("[", "").replace("]", ""),
+            "ATTACK TYPE": attack_type,
             "PROJECTILE TAG": projectile_tag,
             "REFLECT COUNT": reflect_count,
             "FILTER INTERVAL": filter_interval,
@@ -554,29 +745,20 @@ class Nodes:
     ):
         return {
             "K_NAME": "TELEPORT",
-            "POSITION": str(position),
-            "ROTATION": str(rotation),
+            "POSITION": str(position).replace("[", "").replace("]", ""),
+            "ROTATION": str(rotation).replace("[", "").replace("]", ""),
             "PROJECTILE TAG": projectile_tag,
             "LAST HIT": last_hit,
             "RELATIVE FROM BRANCH": relative_from_branch,
         }
 
-    def ADD_AWAKENING(
-        self,
-        amount: int = 5,
-    ):
+    def ADD_AWAKENING(self, amount: int = 5):
         return {"K_NAME": "ULTGIB", "AMOUNT": amount}
 
-    def ADD_HEALTH(
-        self,
-        amount: int = 5,
-    ):
+    def ADD_HEALTH(self, amount: int = 5):
         return {"K_NAME": "HPGIB", "AMOUNT": amount}
 
-    def ADD_EVASION(
-        self,
-        amount: int = 5,
-    ):
+    def ADD_EVASION(self, amount: int = 5):
         return {"K_NAME": "EVGIB", "AMOUNT": amount}
 
     def HIT_CANCEL(
@@ -593,3 +775,75 @@ class Nodes:
             "BRANCH": branch,
             "FLIP": flip,
         }
+
+    def SET_COOLDOWN(self, cooldown: float = -1, key: int = -1):
+        return {"KEY": key, "K_NAME": "SETCD", "COOLDOWN": cooldown}
+
+    def LOOP(self, loop_back: int = 1, loop_amount: int = 3, hold: bool = False):
+        return {
+            "LOOP BACK": loop_back,
+            "HOLD": hold,
+            "LOOP AMOUNT": loop_amount,
+            "K_NAME": "LOOP",
+        }
+
+
+class Conditions:
+    def IN_AIR(self, flip: bool = False) -> dict:
+        return {"K_NAME": "AIR", "FLIP": flip}
+
+    def IS_JUMPING(self, flip: bool = False) -> dict:
+        return {"K_NAME": "JUMP", "FLIP": flip}
+
+    def HAS_TARGET(self, flip: bool = False) -> dict:
+        return {"K_NAME": "AIM", "FLIP": flip}
+
+    def IS_AWAKENED(self, flip: bool = False) -> dict:
+        return {"K_NAME": "ULT", "FLIP": flip}
+
+    def HAS_AWK_BAR(self, amount: float = 2, flip: bool = False) -> dict:
+        return {"K_NAME": "BAR", "AMOUNT": amount, "FLIP": flip}
+
+    def DURABILITY(self, durability: float = 1) -> dict:
+        return {"K_NAME": "DUR", "DURABILITY": durability}
+
+    def HAS_HEALTH(self, amount: float = 1, flip: bool = False) -> dict:
+        return {"K_NAME": "HP", "AMOUNT": amount, "FLIP": flip}
+
+    def IS_IN_DOMAIN(self, flip: bool = False) -> dict:
+        return {"K_NAME": "DOMAIN", "FLIP": flip}
+
+    def IS_HOLDING(self, flip: bool = False) -> dict:
+        return {"K_NAME": "HOLD", "FLIP": flip}
+
+
+def Properties(
+    damage_multiplier: float = 1,
+    knockback_multiplier: float = 1,
+    invincible: bool = False,
+    replace_skill_if_occupied: bool = False,
+    prevent_override: bool = False,
+    hide_in_awakening: bool = False,
+    keep_when_moveset_switches: bool = False,
+    hide_in_base: bool = False,
+    use_when_obtained: bool = False,
+    use_on_death: bool = False,
+    no_stun: bool = False,
+    no_cancel: bool = False,
+    variant_tag: str = "-",
+) -> dict:
+    return {
+        "DMG": damage_multiplier,
+        "KNOCK": knockback_multiplier,
+        "INV": invincible,
+        "REP": replace_skill_if_occupied,
+        "REP2": prevent_override,
+        "AWK": hide_in_awakening,
+        "KEEP": keep_when_moveset_switches,
+        "AWK2": hide_in_base,
+        "USE": use_when_obtained,
+        "USEONDEATH": use_on_death,
+        "NOSTUN": no_stun,
+        "NOCANCEL": no_cancel,
+        "VAR": variant_tag,
+    }

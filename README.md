@@ -1,10 +1,13 @@
 # libjjs
-*A Python library for creating Jujutsu Shenanigans movesets.*
+
+_A Python library for creating Jujutsu Shenanigans movesets._
 
 ## How?
+
 The way character codes are generated is by taking the original JSON and compressing it through [zstandard](https://github.com/indygreg/python-zstandard) and then base64-encoding it. This is very easy to reverse, and can be used to create custom movesets externally without the need for Roblox or JJS.
 
 Let's try it out. This is a basic character featuring one attack, an instant Todo swap, and a nameless awakening that creates Heian Sukuna's "Dismantle Net":
+
 ```
 KLUv/WCJA40PALZaVSYQq+oBsOM43sl9eKAChX7vhegbSNzqodFpbd8lezRGBFEAAAAAOEcASQBOAJ03z8REfJoIHQUUIeRA2Vminb3zQON2lp3zdsnO2YVSO28t+/FL7VA2wXS0d63UcQ0c7V2ZYJr2LXs+3rZnDRbsQLYkfW9XPzAxMA2IsvME+MdLjvPn/NmJYnonKuH8cf4U0NsZ07eeiHgUS6LDS3aeF2LwoPYf1L5LIoQRchZQ0zTweU9EPH+X7GxNGpkVFQ/XVSYUB4G3eSbKttYk1WmK2jujgGG4ZOeFrOrsEsdpYlRAT7NQLKCEAxHQExowS8NVJpiFgaPZaMzOjmmAw/drfcilEefF2FRTnSKHa5LMBUPRMO2CTS6U4OuU2hvAUjsdb/1E8VcQqTfPtOzMgUGTneuM7EedHULqFMkX26fVR9ysjLfTchkFAYOJJnVpNKn73pzUbQUsPCAwQmKUdHZDsOFRRQGDZJeg4u6FMgn9G4xiAPIHGdrNOg4s5CTYCMJiCAp+76pl4PKqVSgDF8iWuV4akML0PQhEMn2ZxDIoECGsfoU0I8XsfY4F7awNkGkx71XcGk5v2o65yPltaZAXHDe2ACCX8IZgO6luOUUiiHldxh0CwYHoazqecXAVjSR5gj3dmmrpkHIMI2aSyjgZ
 ```
@@ -43,3 +46,8 @@ Prop":[]}'
 ```
 
 From this, we can modify this JSON to create custom moveset through scripts.
+
+## Missing Features
+
+- Branches
+- Properties
