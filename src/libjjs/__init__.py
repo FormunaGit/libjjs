@@ -58,7 +58,7 @@ class Character:
 
     # Exports the character as a JJS character code
     def export_character_code(self) -> str:
-        zstd_encoded = zstd.compress(str(self.export_raw()).encode("utf-8"))
+        zstd_encoded = zstd.compress(self.export_raw().encode("utf-8"))
         base64_encoded = base64.b64encode(zstd_encoded)
         return base64_encoded.decode("utf-8")
 
@@ -308,14 +308,14 @@ class Nodes:
         self,
         effect: str = "Slash",
         time: float = 1,
-        position: str = "0, 0, 0",
-        rotation: str = "0, 0, 0",
-        size: float = 1,
+        position: list[int] = [0, 0, 0],
+        rotation: list[int] = [0, 0, 0],
+        size: list[int] = [1, 1, 1],
         color: str = "255, 255, 255",
         opacity: float = 0,
-        alt_position: str = "0, 0, 0",
-        alt_rotation: str = "0, 0, 0",
-        alt_size: float = 1,
+        alt_position: list[int] = [0, 0, 0],
+        alt_rotation: list[int] = [0, 0, 0],
+        alt_size: list[int] = [1, 1, 1],
         alt_color: str = "255, 255, 255",
         alt_opacity: float = 0,
         texture: int = 2,
@@ -335,14 +335,14 @@ class Nodes:
             "K_NAME": "VISUAL",
             "EFFECT": effect,
             "TIME": time,
-            "POSITION": position,
-            "ROTATION": rotation,
-            "SIZE": size,
+            "POSITION": str(position),
+            "ROTATION": str(rotation),
+            "SIZE": str(size),
             "COLOR": color,
             "OPACITY": opacity,
-            "ALT POSITION": alt_position,
-            "ALT ROTATION": alt_rotation,
-            "ALT SIZE": alt_size,
+            "ALT POSITION": str(alt_position),
+            "ALT ROTATION": str(alt_rotation),
+            "ALT SIZE": str(alt_size),
             "ALT COLOR": alt_color,
             "ALT OPACITY": alt_opacity,
             "TEXTURE": texture,
@@ -364,8 +364,8 @@ class Nodes:
         body_part: str = "HumanoidRootPart",
         body_part2: str = "HumanoidRootPart",
         time: float = 1,
-        position: str = "0, 0, 0",
-        rotation: str = "0, 0, 0",
+        position: list[int] = [0, 0, 0],
+        rotation: list[int] = [0, 0, 0],
         last_hit: int = 1,
     ):
         return {
@@ -373,8 +373,8 @@ class Nodes:
             "BODY PART": body_part,
             "BODY PART2": body_part2,
             "TIME": time,
-            "POSITION": position,
-            "ROTATION": rotation,
+            "POSITION": str(position),
+            "ROTATION": str(rotation),
             "LAST HIT": last_hit,
         }
 
@@ -383,9 +383,9 @@ class Nodes:
         damage: int = 1,
         stun: float = 1,
         speed: float = 1,
-        size: str = "6, 6, 6",
-        position: str = "0, 0, 0",
-        rotation: str = "0, 0, 0",
+        size: list[int] = [6, 6, 6],
+        position: list[int] = [0, 0, 0],
+        rotation: list[int] = [0, 0, 0],
         attack_type: str = "Melee",  # CHOICE
         projectile_tag: str = "nil",
         reflect_count: int = 0,
@@ -410,9 +410,9 @@ class Nodes:
             "DAMAGE": damage,
             "STUN": stun,
             "SPEED": speed,
-            "SIZE": size,
-            "POSITION": position,
-            "ROTATION": rotation,
+            "SIZE": str(size),
+            "POSITION": str(position),
+            "ROTATION": str(rotation),
             "ATTACK TYPE": attack_type,  # CHOICE
             "PROJECTILE TAG": projectile_tag,
             "REFLECT COUNT": reflect_count,
@@ -502,16 +502,16 @@ class Nodes:
 
     def TELEPORT(
         self,
-        position: str = "0, 0, 0",
-        rotation: str = "0, 0, 0",
+        position: list[int] = [0, 0, 0],
+        rotation: list[int] = [0, 0, 0],
         projectile_tag: str = "nil",
         last_hit: int = -1,
         relative_from_branch: bool = False,
     ):
         return {
             "K_NAME": "TELEPORT",
-            "POSITION": position,
-            "ROTATION": rotation,
+            "POSITION": str(position),
+            "ROTATION": str(rotation),
             "PROJECTILE TAG": projectile_tag,
             "LAST HIT": last_hit,
             "RELATIVE FROM BRANCH": relative_from_branch,
