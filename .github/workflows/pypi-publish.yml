@@ -1,0 +1,36 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  pypi-publish:
+    name: Build and publish to PyPI
+    runs-on: ubuntu-latest
+    
+    permissions:
+      id-token: write
+
+    steps:
+    - name: checkout source code
+      uses: actions/checkout@v4
+
+    - name: install the thon
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: install poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: install project dependencies
+      run: poetry install --no-interaction
+
+    - name: build project
+      run: poetry build
+
+    - name: send project
+      uses: pypa/gh-action-pypi-publish@release/v1
