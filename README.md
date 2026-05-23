@@ -2,6 +2,8 @@
 
 _A Python library for creating Jujutsu Shenanigans movesets._
 
+![On PyPI](https://img.shields.io/badge/On-PyPI-blue?logo=pypi&logoColor=white&link=https%3A%2F%2Fpypi.org%2Fproject%2Flibjjs%2F)
+
 ## How?
 
 <details>
@@ -55,9 +57,6 @@ From this, we can modify this JSON to create custom moveset through scripts.
 ## Usage
 
 First, install the library using `pip install libjjs`.
-
-> [!NOTE]
-> the library may or may not be on pypi so uhh wait till it's available there
 
 Then, in a Python file, import the library and create a character.
 
