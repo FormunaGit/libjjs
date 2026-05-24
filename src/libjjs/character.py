@@ -51,6 +51,15 @@ class Character:
             self.character = character
 
         @staticmethod
+        def _is_hidden(skill: GenericSkill) -> bool:
+            try:
+                data = json.loads(skill["DATA"])
+                props = data.get("Prop", {})
+                return props.get("AWK", False) or props.get("AWK2", False)
+            except (json.JSONDecodeError, KeyError):
+                return False
+
+        @staticmethod
         def _build_data(
             line: list[dict],
             properties: dict | None = None,
@@ -177,7 +186,9 @@ class Character:
                     key
                     if key is not None
                     else sum(
-                        1 for s in self.character.raw if s.get("K_NAME") == "SKILL"
+                        1
+                        for s in self.character.raw
+                        if s.get("K_NAME") == "SKILL" and not self._is_hidden(s)
                     )
                     + 1
                 )

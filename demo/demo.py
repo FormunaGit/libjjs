@@ -3,7 +3,7 @@ import libjjs
 nodes = libjjs.Nodes()
 conditions = libjjs.Conditions()
 
-demo_character = libjjs.Character()
+demo_character = libjjs.Character(True)
 
 # Create a faster Todo special that only works when in the air
 demo_character.create.skill(

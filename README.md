@@ -1,4 +1,4 @@
-# ![libjjs](./assets/libjjs-small.png)
+# ![libjjs](https://raw.githubusercontent.com/FormunaGit/libjjs/refs/heads/main/assets/libjjs-small.png)
 
 _A Python library for creating Jujutsu Shenanigans movesets._
 
