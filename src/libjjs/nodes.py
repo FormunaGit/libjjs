@@ -1,3 +1,5 @@
+from typing import Literal
+
 from .types import (
     AttackType,
     BodyParts,
@@ -196,7 +198,7 @@ class Nodes:
     def VISUAL(
         self,
         effect: Effects = "Slash",
-        time: float = 1,
+        time: float | Literal["inf"] = 1,
         position: list[float] = [0, 0, 0],
         rotation: list[float] = [0, 0, 0],
         size: float = 1,
