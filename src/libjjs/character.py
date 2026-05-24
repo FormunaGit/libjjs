@@ -4,8 +4,9 @@ from typing import Literal
 
 import zstd
 
+from .defaults import CONDITIONS_DEFAULTS, NODE_DEFAULTS, PROPERTIES_DEFAULTS
 from .types import GenericSkill
-from .defaults import NODE_DEFAULTS, PROPERTIES_DEFAULTS, CONDITIONS_DEFAULTS
+
 
 class Character:
     def __init__(self):

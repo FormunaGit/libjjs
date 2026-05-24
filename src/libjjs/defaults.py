@@ -29,6 +29,8 @@ NODE_DEFAULTS: dict[str, dict[str, object]] = {
         "END": 500,
         "SPEED": 1,
         "VOLUME": 1,
+        "FADE IN": 0,
+        "FADE OUT": 0,
         "GLOBAL": False,
         "PROJECTILE TAG": "nil",
         "CANCEL": False,
@@ -65,6 +67,8 @@ NODE_DEFAULTS: dict[str, dict[str, object]] = {
         "BRANCH TARGET": "nil",
         "BRANCH FINISHER": "nil",
         "PROJECTILE TAG": "nil",
+        "IGNORE WAKEUP": False,
+        "PREVIEW": [0, 15],
     },
     "BRANCH": {"BRANCH": "nil", "RANDOM": "", "LAST HIT": -1},
     "VISUAL": {
@@ -126,6 +130,7 @@ NODE_DEFAULTS: dict[str, dict[str, object]] = {
         "DEBREE": 0,
         "CANCEL ENEMY": True,
         "CACHE": True,
+        "CLEAR KNOCKBACK": False,
     },
     "COUNTER": {
         "TIME": 1,

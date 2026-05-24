@@ -1,3 +1,14 @@
+from .types import (
+    AttackType,
+    BodyParts,
+    EasingDirections,
+    EasingStyles,
+    Effects,
+    Specials,
+    States,
+)
+
+
 class Nodes:
     def WAIT(self, TIME: float = 1):
         return {"K_NAME": "WAIT", "TIME": TIME}
@@ -23,7 +34,7 @@ class Nodes:
 
     def SPECIAL(
         self,
-        spec: str = "Limitless",
+        spec: Specials = "Limitless",
         speed: float = 1,
         cancel_last: bool = False,
         enable_variants: bool = True,
@@ -38,14 +49,14 @@ class Nodes:
 
     def ANIM(
         self,
-        animation: list[int] = [1, 1],
+        animation: list[float] = [1, 1],
         start: float = 0,
         end: float = 3.6,
         looped: bool = False,
         speed: float = 1,
         fade_in: float = 0.1,
         fade_out: float = 0,
-        last_hit: int = -1,
+        last_hit: float = -1,
     ):
         # ANIM_USE seems to be in [character#, anim#] format, so this is gojo's hollowpurple
         # hollow purple is the default cuz its [1,1] i guess
@@ -67,6 +78,8 @@ class Nodes:
         volume: float = 1,
         start: float = 0,
         end: float = 500,
+        fade_in: float = 0,
+        fade_out: float = 0,
         cancel: bool = False,
         global_: bool = False,
         projectile_tag: str = "nil",
@@ -78,6 +91,8 @@ class Nodes:
             "END": end,
             "SPEED": speed,
             "VOLUME": volume,
+            "FADE IN": fade_in,
+            "FADE OUT": fade_out,
             "GLOBAL": global_,
             "PROJECTILE TAG": projectile_tag,
             "CANCEL": cancel,
@@ -85,11 +100,11 @@ class Nodes:
 
     def VELOCITY(
         self,
-        force: list[int] = [0, 0, 0],
+        force: list[float] = [0, 0, 0],
         time: int = 0,
         fade: bool = False,
         track: bool = False,
-        last_hit: int = -1,
+        last_hit: float = -1,
         ragdoll: int = 0,
         true_ragdoll: bool = False,
         relative_from_branch: bool = False,
@@ -116,14 +131,14 @@ class Nodes:
 
     def HITBOX(
         self,
-        position: list[int] = [0, 0, 4],
-        rotation: list[int] = [0, 0, 0],
-        size: list[int] = [6, 6, 6],
+        position: list[float] = [0, 0, 4],
+        rotation: list[float] = [0, 0, 0],
+        size: list[float] = [6, 6, 6],
         stun: float = 1,
         stun_anim: bool = False,
         damage: int = 1,
         debree: int = 0,
-        attack_type: str = "Melee",  # CHOICE
+        attack_type: AttackType = "Melee",
         blockable: bool = True,
         blockable_360: bool = False,
         cancel_enemy: bool = True,
@@ -136,6 +151,8 @@ class Nodes:
         branch_target: str = "nil",
         branch_finisher: str = "nil",
         projectile_tag: str = "nil",
+        ignore_wakeup: bool = False,
+        preview: list[float] | None = None,
     ):
         return {
             "K_NAME": "HITBOX",
@@ -159,13 +176,15 @@ class Nodes:
             "BRANCH TARGET": branch_target,
             "BRANCH FINISHER": branch_finisher,
             "PROJECTILE TAG": projectile_tag,
+            "IGNORE WAKEUP": ignore_wakeup,
+            "PREVIEW": preview if preview is not None else [0, 15],
         }
 
     def BRANCH(
         self,
         branch: str = "nil",
         random: str = "",
-        last_hit: int = -1,
+        last_hit: float = -1,
     ):
         return {
             "K_NAME": "BRANCH",
@@ -176,22 +195,22 @@ class Nodes:
 
     def VISUAL(
         self,
-        effect: str = "Slash",
+        effect: Effects = "Slash",
         time: float = 1,
-        position: list[int] = [0, 0, 0],
-        rotation: list[int] = [0, 0, 0],
+        position: list[float] = [0, 0, 0],
+        rotation: list[float] = [0, 0, 0],
         size: float = 1,
         color: str = "255, 255, 255",
         opacity: float = 0,
-        alt_position: list[int] = [0, 0, 0],
-        alt_rotation: list[int] = [0, 0, 0],
+        alt_position: list[float] = [0, 0, 0],
+        alt_rotation: list[float] = [0, 0, 0],
         alt_size: float = 1,
         alt_color: str = "255, 255, 255",
         alt_opacity: float = 0,
         texture: int = 2,
-        body_part: str = "HumanoidRootPart",
-        easing_style: str = "Linear",
-        easing_direction: str = "In",
+        body_part: BodyParts = "HumanoidRootPart",
+        easing_style: EasingStyles = "Linear",
+        easing_direction: EasingDirections = "In",
         projectile_tag: str = "nil",
         visual_tag: str = "nil",
         amount: int = 1,
@@ -199,7 +218,7 @@ class Nodes:
         relative_from_branch: bool = False,
         cancel_on_interrupt: bool = False,
         can_collide: bool = False,
-        last_hit: int = -1,
+        last_hit: float = -1,
     ):
         return {
             "K_NAME": "VISUAL",
@@ -231,12 +250,12 @@ class Nodes:
 
     def GRAB(
         self,
-        body_part: str = "HumanoidRootPart",
-        body_part2: str = "HumanoidRootPart",
+        body_part: BodyParts = "HumanoidRootPart",
+        body_part2: BodyParts = "HumanoidRootPart",
         time: float = 1,
-        position: list[int] = [0, 0, 0],
-        rotation: list[int] = [0, 0, 0],
-        last_hit: int = 1,
+        position: list[float] = [0, 0, 0],
+        rotation: list[float] = [0, 0, 0],
+        last_hit: float = 1,
     ):
         return {
             "K_NAME": "GRAB",
@@ -253,10 +272,10 @@ class Nodes:
         damage: int = 1,
         stun: float = 1,
         speed: float = 1,
-        size: list[int] = [6, 6, 6],
-        position: list[int] = [0, 0, 0],
-        rotation: list[int] = [0, 0, 0],
-        attack_type: str = "Melee",  # CHOICE
+        size: list[float] = [6, 6, 6],
+        position: list[float] = [0, 0, 0],
+        rotation: list[float] = [0, 0, 0],
+        attack_type: AttackType = "Melee",
         projectile_tag: str = "nil",
         reflect_count: int = 0,
         filter_interval: int = 1,
@@ -268,12 +287,13 @@ class Nodes:
         stun_anim: bool = False,
         hit_user: bool = False,
         blockable: bool = True,
-        aim_last_hit: int = -1,
+        aim_last_hit: float = -1,
         time: float = 1,
         ignore_wakeup: bool = True,
         debree: int = 0,
         cancel_enemy: bool = True,
         cache: bool = True,
+        clear_knockback: bool = False,
     ):
         return {
             "K_NAME": "PROJECTILE",
@@ -283,7 +303,7 @@ class Nodes:
             "SIZE": str(size).replace("[", "").replace("]", ""),
             "POSITION": str(position).replace("[", "").replace("]", ""),
             "ROTATION": str(rotation).replace("[", "").replace("]", ""),
-            "ATTACK TYPE": attack_type,  # CHOICE
+            "ATTACK TYPE": attack_type,
             "PROJECTILE TAG": projectile_tag,
             "REFLECT COUNT": reflect_count,
             "FILTER INTERVAL": filter_interval,
@@ -301,13 +321,14 @@ class Nodes:
             "DEBREE": debree,
             "CANCEL ENEMY": cancel_enemy,
             "CACHE": cache,
+            "CLEAR KNOCKBACK": clear_knockback,
         }
 
     def COUNTER(
         self,
         time: float = 1,
         stun: float = 1,
-        attack_type: str = "Melee",  # MULTICHOICE
+        attack_type: list[AttackType] = ["Melee"],
         branch: str = "nil",
         branch_target: str = "nil",
         cancel_enemy: bool = True,
@@ -317,7 +338,7 @@ class Nodes:
             "K_NAME": "COUNTER",
             "TIME": time,
             "STUN": stun,
-            "ATTACK TYPE2": attack_type,
+            "ATTACK TYPE2": ",".join(attack_type),
             "BRANCH": branch,
             "BRANCH TARGET": branch_target,
             "CANCEL ENEMY": cancel_enemy,
@@ -333,7 +354,7 @@ class Nodes:
         check: bool = False,
         set_value: bool = True,
         branch: str = "nil",
-        last_hit: int = -1,
+        last_hit: float = -1,
     ):
         return {
             "K_NAME": "TAG",
@@ -349,14 +370,14 @@ class Nodes:
 
     def STATE(
         self,
-        state: str = "Stun",  # CHOICE
+        state: States = "Stun",
         value: int = 1,
         time: float = 1,
         disable_burst: bool = False,
         cancel_on_end: bool = False,
         branch: str = "nil",
         check: bool = False,
-        last_hit: int = -1,
+        last_hit: float = -1,
     ):
         return {
             "K_NAME": "STATE",
@@ -372,10 +393,10 @@ class Nodes:
 
     def TELEPORT(
         self,
-        position: list[int] = [0, 0, 0],
-        rotation: list[int] = [0, 0, 0],
+        position: list[float] = [0, 0, 0],
+        rotation: list[float] = [0, 0, 0],
         projectile_tag: str = "nil",
-        last_hit: int = -1,
+        last_hit: float = -1,
         relative_from_branch: bool = False,
     ):
         return {
@@ -421,3 +442,11 @@ class Nodes:
             "LOOP AMOUNT": loop_amount,
             "K_NAME": "LOOP",
         }
+
+
+class CustomNodes:
+    def __init__(self):
+        self._nodes = Nodes()
+
+    def Domain(self):
+        return self._nodes.VISUAL()
