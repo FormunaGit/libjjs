@@ -5,13 +5,35 @@ from typing import Literal
 import zstd
 
 from .defaults import CONDITIONS_DEFAULTS, NODE_DEFAULTS, PROPERTIES_DEFAULTS
-from .types import GenericSkill
+from .nodes import Nodes
+from .types import BodyParts, GenericSkill
+from .utils import Properties
 
 
 class Character:
-    def __init__(self):
+    def __init__(self, hide_character_extras: bool = False):
         self.raw: list[GenericSkill] = []
         self.create = self.CreateHelper(self)
+        if hide_character_extras:
+            self.create.skill(
+                "init__HideCharacterExtras",
+                [
+                    # hide everything
+                    Nodes().VISUAL("Visibility", opacity=1, alt_opacity=1),
+                    # show limbs
+                    *[
+                        Nodes().VISUAL(
+                            "Visibility", opacity=0, alt_opacity=0, body_part=limb
+                        )
+                        for limb in [
+                            p for p in BodyParts.__args__ if p != "HumanoidRootPart"
+                        ]
+                    ],
+                ],
+                properties=Properties(
+                    use_when_obtained=True, hide_in_awakening=True, hide_in_base=True
+                ),
+            )
 
     def create_raw_skill(self, skill_data: GenericSkill):
         self.raw.append(skill_data)
