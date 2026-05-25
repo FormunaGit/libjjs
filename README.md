@@ -84,7 +84,7 @@ Check out demo/demo.py for a full example.
 - [x] Exports as a JJS-valid character code
   - I recommend you paste it into JJS to check if it's working, then copy the character block's export
 - [x] Branch support
-- [ ] Variable names for animations, easing styles/directions, effects, etc
+- [x] Variable names for animations, easing styles/directions, effects, etc
 - [ ] Custom nodes
   - [ ] Domain node
 - [ ] Fake rigs

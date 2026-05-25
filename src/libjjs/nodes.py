@@ -103,11 +103,11 @@ class Nodes:
     def VELOCITY(
         self,
         force: list[float] = [0, 0, 0],
-        time: int = 0,
+        time: float | Literal["inf"] = 0,
         fade: bool = False,
         track: bool = False,
         last_hit: float = -1,
-        ragdoll: int = 0,
+        ragdoll: float = 0,
         true_ragdoll: bool = False,
         relative_from_branch: bool = False,
     ):
@@ -126,7 +126,7 @@ class Nodes:
     def CONNECT(
         self,
         signal: str = "Nothing",
-        time: float = 0.1,
+        time: float | Literal["inf"] = 0.1,
         range: float = 99999999,
     ):
         return {"K_NAME": "CONNECT", "SIGNAL": signal, "TIME": time, "RANGE": range}
@@ -138,7 +138,7 @@ class Nodes:
         size: list[float] = [6, 6, 6],
         stun: float = 1,
         stun_anim: bool = False,
-        damage: int = 1,
+        damage: float = 1,
         debree: int = 0,
         attack_type: AttackType = "Melee",
         blockable: bool = True,
@@ -254,7 +254,7 @@ class Nodes:
         self,
         body_part: BodyParts = "HumanoidRootPart",
         body_part2: BodyParts = "HumanoidRootPart",
-        time: float = 1,
+        time: float | Literal["inf"] = 1,
         position: list[float] = [0, 0, 0],
         rotation: list[float] = [0, 0, 0],
         last_hit: float = 1,
@@ -271,7 +271,7 @@ class Nodes:
 
     def PROJECTILE(
         self,
-        damage: int = 1,
+        damage: float = 1,
         stun: float = 1,
         speed: float = 1,
         size: list[float] = [6, 6, 6],
@@ -290,7 +290,7 @@ class Nodes:
         hit_user: bool = False,
         blockable: bool = True,
         aim_last_hit: float = -1,
-        time: float = 1,
+        time: float | Literal["inf"] = 1,
         ignore_wakeup: bool = True,
         debree: int = 0,
         cancel_enemy: bool = True,
@@ -328,7 +328,7 @@ class Nodes:
 
     def COUNTER(
         self,
-        time: float = 1,
+        time: float | Literal["inf"] = 1,
         stun: float = 1,
         attack_type: list[AttackType] = ["Melee"],
         branch: str = "nil",
@@ -351,7 +351,7 @@ class Nodes:
         self,
         tag: str = "nil",
         value: str = "nil",
-        time: float = 1,
+        time: float | Literal["inf"] = 1,
         add_remove: bool = True,
         check: bool = False,
         set_value: bool = True,
@@ -373,8 +373,8 @@ class Nodes:
     def STATE(
         self,
         state: States = "Stun",
-        value: int = 1,
-        time: float = 1,
+        value: float = 1,
+        time: float | Literal["inf"] = 1,
         disable_burst: bool = False,
         cancel_on_end: bool = False,
         branch: str = "nil",
@@ -410,18 +410,18 @@ class Nodes:
             "RELATIVE FROM BRANCH": relative_from_branch,
         }
 
-    def ADD_AWAKENING(self, amount: int = 5):
+    def ADD_AWAKENING(self, amount: float = 5):
         return {"K_NAME": "ULTGIB", "AMOUNT": amount}
 
-    def ADD_HEALTH(self, amount: int = 5):
+    def ADD_HEALTH(self, amount: float = 5):
         return {"K_NAME": "HPGIB", "AMOUNT": amount}
 
-    def ADD_EVASION(self, amount: int = 5):
+    def ADD_EVASION(self, amount: float = 5):
         return {"K_NAME": "EVGIB", "AMOUNT": amount}
 
     def HIT_CANCEL(
         self,
-        time: float = 1,
+        time: float | Literal["inf"] = 1,
         endlag: float = 1,
         branch: str = "nil",
         flip: bool = False,
